@@ -19,7 +19,7 @@ export default function GooglePoints() {
   ])
   const submitLoading = useSelector(submitLoadingSelector)
 
-  const { locationA, locationB } = useSelector(geocodingCoordinates)
+  const { locationA, locationB, error } = useSelector(geocodingCoordinates)
 
   useEffect(() => {
     setDistance(
@@ -51,26 +51,39 @@ export default function GooglePoints() {
         <h1 className="text-xl font-bold">
           Calculate Geometric distance here!
         </h1>
-        <h2 className="text-xl">Current distance is: {distance} km</h2>
+        <h2 className="text-xl">
+          Current distance is:{' '}
+          <span id="geometric-distance">{distance} km</span>
+        </h2>
         <br />
 
         <span>or you can type manually:</span>
 
         <form onSubmit={handleSubmit}>
           <TextInput
+            id="pointA"
             className="w-full mt-5"
             onChange={(e) => setPointA(e.target.value)}
             placeholder="Point A"
             value={pointA}
           />
           <TextInput
+            id="pointB"
             className="w-full mt-5"
             onChange={(e) => setPointB(e.target.value)}
             placeholder="Point B"
             value={pointB}
           />
 
-          <SubmitButton loading={submitLoading} />
+          <SubmitButton id="submit-button" loading={submitLoading} />
+          {error && (
+            <span
+              className="bg-red-200 relative text-red-500 py-3 px-3 rounded-lg ml-5"
+              id="error-text"
+            >
+              Couldn't find the location(s) 🙁
+            </span>
+          )}
         </form>
       </div>
     </div>

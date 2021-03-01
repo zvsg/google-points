@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('addMarkers', (window) => {
+  window.google.maps.event.trigger(window.googleMapsInstance.map, 'click', {
+    // Kyiv
+    latLng: new window.google.maps.LatLng(
+      50.424189168308274,
+      30.574605587621743
+    )
+  })
+  window.google.maps.event.trigger(window.googleMapsInstance.map, 'click', {
+    // Moscow
+    latLng: new window.google.maps.LatLng(55.734772504312936, 37.64980090012175)
+  })
+})

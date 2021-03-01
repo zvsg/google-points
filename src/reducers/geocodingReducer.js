@@ -16,6 +16,9 @@ export default function (state = initialState, { type, payload }) {
     case GET_GEOCODING_LIST.success().type:
       return payload
 
+    case GET_GEOCODING_LIST.failure().type:
+      return { ...initialState, ...{ error: true } }
+
     default:
       return state
   }

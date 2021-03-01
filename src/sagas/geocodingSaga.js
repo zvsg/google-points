@@ -9,6 +9,11 @@ function* getGeocodingList({ payload: { pointA, pointB } }) {
       call(API.get, `/json?&address=${pointB}`)
     ])
 
+    if (!pointALocation.data.results.length || !pointBLocation.data.results.length) {
+      yield put(GET_GEOCODING_LIST.failure())
+      return
+    }
+
     yield put(
       GET_GEOCODING_LIST.success({
         locationA: {
